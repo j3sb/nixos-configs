@@ -67,6 +67,9 @@ default_border pixel
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 #output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+#output * bg /run/current-system/sw/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg ~/nixos-configs/background.png fill
+
 #
 # Example configuration:
 #

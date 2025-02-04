@@ -15,7 +15,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # tood set hostname for each host
-  networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -61,6 +60,7 @@
     description = "jonas";
     extraGroups = [ "networkmanager" "wheel" "dialout" ];
     packages = with pkgs; [];
+    shell = pkgs.zsh;
   };
 
   # Allow unfree packages
@@ -92,6 +92,8 @@
 	nextcloud-client
 	wireguard-tools
 	discord
+	keepassxc
+	ouch
   ];
 
   programs.git = {
@@ -110,6 +112,9 @@
   };
 
   # zsh
+  # Prevent the new user dialog in zsh
+  system.userActivationScripts.zshrc = "touch .zshrc";
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -120,13 +125,22 @@
       ll = "ls -l";
       update = "sudo nixos-rebuild switch";
     };
-    oh-my-zsh = {
+    ohMyZsh = {
         enable = true;
         plugins = [ "git" ];
         theme = "robbyrussell";
       };
+    loginShellInit = ''
+      if [ -z "$WAYLAND_DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ] ; then
+        exec sway
+      fi
+      '';
 
   };
+
+  # Enable the gnome-keyring secrets vault. 
+  # Will be exposed through DBus to programs willing to store secrets.
+  services.gnome.gnome-keyring.enable = true;
 
   # sway
   programs.sway = {
