@@ -147,8 +147,18 @@
   	enable = true;
         wrapperFeatures.gtk = true;
 	# add waybar as a "dependecy" of sway
-	extraPackages = with pkgs; options.programs.sway.extraPackages.default ++ [waybar wofi slurp];
+	extraPackages = with pkgs; [ brightnessctl grim pulseaudio waybar wofi slurp ];
   };
+
+  # foot configuration
+  programs.foot = {
+    enable = true;
+
+    settings.main = {
+      font = "Inconsolata:size=10";
+    };
+  };
+
 
   # home manager for config files and stuff lol
   home-manager.users.jonas = {
