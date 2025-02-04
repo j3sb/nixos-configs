@@ -2,12 +2,11 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, options, pkgs, ... }:
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+    [ 
       <home-manager/nixos>
     ];
 
@@ -15,6 +14,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # tood set hostname for each host
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -27,6 +27,9 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Stockholm";
+
+  # octoprint
+ # services.octoprint.enable = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -56,7 +59,7 @@
   users.users.jonas = {
     isNormalUser = true;
     description = "jonas";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "dialout" ];
     packages = with pkgs; [];
   };
 
@@ -69,7 +72,11 @@
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
   	neovim
+	wl-clipboard
 	firefox
+	btop-rocm
+	nextcloud-client
+	wireguard-tools
   ];
 
   programs.git = {
@@ -80,10 +87,19 @@
 	};
   };
 
+
+  # steam
+  programs.steam = {
+    enable = true;
+    localNetworkGameTransfers.openFirewall = true;
+  };
+
   # sway
   programs.sway = {
   	enable = true;
-	wrapperFeatures.gtk = true;
+        wrapperFeatures.gtk = true;
+	# add waybar as a "dependecy" of sway
+	extraPackages = with pkgs; options.programs.sway.extraPackages.default ++ [waybar wofi];
   };
 
   # home manager for config files and stuff lol
@@ -91,10 +107,17 @@
     /* The home.stateVersion option does not have a default and must be set */
     home.stateVersion = "24.11";
 
-#    xdg.configFile = {
-#    	"sway/config".text = ""
-#	"";
-#    };
+    # wayland.windowManager.sway = {
+    #   enable = true;
+    #   config = rec {
+    # };
+
+
+    xdg.configFile = {
+    	"sway/config".source = ./dotfiles/sway/config;
+	"waybar/config".source = ./dotfiles/waybar/config;
+	"wofi/style.css".source = ./dotfiles/wofi/style.css;
+    };
   };
 
 

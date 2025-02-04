@@ -1,0 +1,343 @@
+# Default config for sway
+#
+# Copy this to ~/.config/sway/config and edit it to your liking.
+#
+# Read `man 5 sway` for a complete reference.
+
+### Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+# Your preferred terminal emulator
+exec foot -s
+set $term footclient
+# Your preferred application launcher
+# Note: pass the final command to swaymsg so that the resulting window can be opened
+# on the original workspace that the command was run on.
+set $base00 #1d2021
+set $base01 #3c3836
+set $base02 #504945
+set $base03 #665c54
+set $base04 #bdae93
+set $base05 #d5c4a1
+set $base06 #ebdbb2
+set $base07 #fbf1c7
+set $base08 #fb4934
+set $base09 #fe8019
+set $base0A #fabd2f
+set $base0B #b8bb26
+set $base0C #8ec07c
+set $base0D #83a598
+set $base0E #d3869b
+set $base0F #d65d0e
+
+#set $menu bemenu-run -i -n \
+#-p "$bemenu_icon" \
+#-l $bemenu_lines \
+#-H $bemenu_height \
+#--scrollbar $bemenu_scrollbar_mode \
+#--ff "$base06" \
+#--scb "$base06" \
+#--scf "$base00" \
+#--tb "$base03" \
+#--nb "$base02" \
+#--nf "$base06" \
+#--fb "$base00" \
+#--tf "$base06" \
+#--hb "$base03" \
+#--hf "$base06" \
+#--sb "$base06" \
+#--sf "$base06" \
+#--fn "Iosevka bold 9.5" | xargs swaymsg exec --
+#set $menu dmenu_path | dmenu | xargs swaymsg exec --
+# set $menu j4-dmenu-desktop --dmenu="dmenu -b -i" | xargs swaymsg exec --
+set $menu wofi --insensitive --show drun | xargs swaymsg exec --
+
+# border stuff
+default_border pixel
+#titlebar_padding 1
+#titlebar_border_thickness 1
+
+### Output configuration
+#
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+#output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+#
+# Example configuration:
+#
+
+# integrated display
+output eDP-1 resolution 1920x1080 position 0,0 scale 1.1
+# output eDP-1 resolution 1920x1080 position 0,0 
+# grundig tv at home
+# output HDMI-A-1 modeline 74.25 1280 1720 1760 1980 720 725 730 750 +hsync +vsync
+# 4k tv
+# output HDMI-A-1 resolution 3840x2160@60Hz position 1920,0 scale 2
+# hd screen
+# output HDMI-A-1 resolution 1920x1080 position 1920,0 scale 1
+output HDMI-A-1 resolution 1920x1200 position 1920,0 scale 1
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+
+### Idle configuration
+#
+# Example configuration:
+#
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+### Input configuration
+#
+# Example configuration:
+#
+#   input "2:14:SynPS/2_Synaptics_TouchPad" {
+#       dwt enabled
+#       tap enabled
+#       natural_scroll enabled
+#       middle_emulation enabled
+#   }
+#
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+
+input "type:keyboard" {
+	repeat_rate 60
+	repeat_delay 200 
+	xkb_layout se
+	# xkb_options grp:rctrl_toggle
+	xkb_variant us
+}
+
+input "type:touchpad" {
+	tap enabled
+	natural_scroll enabled
+}
+
+input "1386:221:Wacom_Bamboo_Connect_Pen" {
+	left_handed enabled
+}
+
+### Key bindings
+#
+# Basics:
+#
+    # Start a terminal
+    bindsym $mod+Return exec $term
+
+    # Start firefox
+    bindsym $mod+p exec firefox
+
+    # Kill focused window
+    bindsym $mod+Shift+q kill
+
+    # Start your launcher
+    bindsym $mod+d exec $menu
+
+    # brightness
+    bindsym --locked XF86MonBrightnessDown exec brightnessctl set 2%-
+    bindsym --locked XF86MonBrightnessUp exec brightnessctl set 2%+
+
+    #
+    # Screen capture
+    #
+    set $ps1 Print
+    set $ps2 Control+Print
+    set $ps3 Shift+Print
+    set $ps4 $mod+Print
+    set $psf ~/Pictures/ps_$(date +"%Y%m%d%H%M%S").png
+
+    # screenshot
+    bindsym $ps1 exec grim -g "$(slurp)" - | wl-copy
+    bindsym $ps2 exec grim - | wl-copy
+    # bindsym $ps3 exec grim -t png -g "$(slurp)" $psf
+    bindsym $ps3 exec grim -g "$(slurp)" -t png $psf
+    bindsym $ps4 exec grim -t png $psf
+
+    # volume control
+    bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+    bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+    bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+c reload
+
+    # Exit sway (logs you out of your Wayland session)
+    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+#
+# Moving around:
+#
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+    # Or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # Move the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    # Ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+
+    bindsym $mod+greater move workspace to output right
+    bindsym $mod+less move workspace to output left
+#
+# Workspaces:
+#
+    # Switch to workspace
+    bindsym $mod+1 workspace number 1
+    bindsym $mod+2 workspace number 2
+    bindsym $mod+3 workspace number 3
+    bindsym $mod+4 workspace number 4
+    bindsym $mod+5 workspace number 5
+    bindsym $mod+6 workspace number 6
+    bindsym $mod+7 workspace number 7
+    bindsym $mod+8 workspace number 8
+    bindsym $mod+9 workspace number 9
+    bindsym $mod+0 workspace number 10
+    # Move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace number 1
+    bindsym $mod+Shift+2 move container to workspace number 2
+    bindsym $mod+Shift+3 move container to workspace number 3
+    bindsym $mod+Shift+4 move container to workspace number 4
+    bindsym $mod+Shift+5 move container to workspace number 5
+    bindsym $mod+Shift+6 move container to workspace number 6
+    bindsym $mod+Shift+7 move container to workspace number 7
+    bindsym $mod+Shift+8 move container to workspace number 8
+    bindsym $mod+Shift+9 move container to workspace number 9
+    bindsym $mod+Shift+0 move container to workspace number 10
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+#
+# Layout stuff:
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+b splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+    
+    bindsym $mod+$left resize shrink width 1px
+    bindsym $mod+$down resize grow height 1px
+    bindsym $mod+$up resize shrink height 1px
+    bindsym $mod+$right resize grow width 1px
+
+
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+#
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    #position top
+
+    # When the status_command prints a new line to stdout, swaybar updates.
+    # The default just shows the current date and time.
+    #status_command while ~/.config/sway/status.sh; do sleep 1; done
+    status_command  waybar
+
+    mode invisible
+    #colors {
+    #    statusline #ffffff
+    #    background #323232
+    #    inactive_workspace #32323200 #32323200 #5c5c5c
+    #}
+}
+
+include /etc/sway/config.d/*
+
+# so that wlr is started?
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec dbus-update-activation-environment DISPLAY
+
+#sound
+exec gentoo-pipewire-launcher &
+
+# nextcloud
+exec sleep 5 && nextcloud &
+
+exec xbacklight -set 50
+
+# set dark theme
+# idk why it's still dark o.0
+# exec gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-Dark' &
+# exec gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' &
