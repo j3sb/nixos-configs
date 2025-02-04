@@ -66,6 +66,20 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # fonts
+  fonts.packages = with pkgs; [
+	nerdfonts
+	noto-fonts
+  	noto-fonts-cjk-sans
+  	noto-fonts-emoji
+  	liberation_ttf
+  	fira-code
+  	fira-code-symbols
+  	mplus-outline-fonts.githubRelease
+  	dina-font
+  	proggyfonts
+  ];
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -77,6 +91,7 @@
 	btop-rocm
 	nextcloud-client
 	wireguard-tools
+	discord
   ];
 
   programs.git = {
@@ -99,7 +114,7 @@
   	enable = true;
         wrapperFeatures.gtk = true;
 	# add waybar as a "dependecy" of sway
-	extraPackages = with pkgs; options.programs.sway.extraPackages.default ++ [waybar wofi];
+	extraPackages = with pkgs; options.programs.sway.extraPackages.default ++ [waybar wofi slurp];
   };
 
   # home manager for config files and stuff lol
@@ -116,6 +131,7 @@
     xdg.configFile = {
     	"sway/config".source = ./dotfiles/sway/config;
 	"waybar/config".source = ./dotfiles/waybar/config;
+	"waybar/style.css".source = ./dotfiles/waybar/style.css;
 	"wofi/style.css".source = ./dotfiles/wofi/style.css;
     };
   };
