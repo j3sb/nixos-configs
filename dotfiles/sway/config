@@ -115,7 +115,7 @@ output HDMI-A-1 resolution 1920x1200 position 1920,0 scale 1
 # Read `man 5 sway-input` for more information about this section.
 
 input "type:keyboard" {
-	repeat_rate 60
+	repeat_rate 50
 	repeat_delay 200 
 	xkb_layout se
 	# xkb_options grp:rctrl_toggle
