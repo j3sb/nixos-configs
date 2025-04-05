@@ -85,15 +85,17 @@
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
-  	neovim
-	wl-clipboard
-	firefox
 	btop-rocm
-	nextcloud-client
-	wireguard-tools
+	blender
 	discord
+	firefox
+	godot_4
 	keepassxc
+	neovim
+	nextcloud-client
 	ouch
+	wireguard-tools
+	wl-clipboard
   ];
 
   programs.git = {
