@@ -38,6 +38,7 @@
 	podman-tui
 	reptyr
 	rnote
+	rpi-imager
 	vlc
 	vscode
 	wireguard-tools
