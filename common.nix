@@ -25,17 +25,18 @@
 	discord
 	ffmpeg
 	firefox
-	godot_4
 	gh
+	godot_4
+	htop
 	kdePackages.dolphin
 	keepassxc
-	rnote
-	pavucontrol
-	podman-tui
 	nautilus
 	neovim
 	nextcloud-client
 	ouch
+	pavucontrol
+	podman-tui
+	rnote
 	vlc
 	vscode
 	wireguard-tools
