@@ -36,6 +36,7 @@
 	ouch
 	pavucontrol
 	podman-tui
+	reptyr
 	rnote
 	vlc
 	vscode
@@ -161,6 +162,9 @@
     };
   };
 
+  # ptrace = 0 for reptyr. makes so that every process can call ptrace on any process (kinda gdb like)
+  boot.kernel.sysctl."kernel.yama.ptrace_scope" = 0;
+
   # auto updates
 #  system.autoUpgrade = {
 #    enable = true;
@@ -218,7 +222,7 @@
   users.users.jonas = {
     isNormalUser = true;
     description = "jonas";
-    extraGroups = [ "networkmanager" "wheel" "dialout" "docker" ];
+    extraGroups = [ "networkmanager" "video" "wheel" "dialout" "docker" ];
     packages = with pkgs; [];
     shell = pkgs.zsh;
   };
