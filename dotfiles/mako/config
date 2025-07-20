@@ -1,0 +1,7 @@
+default-timeout=3000
+
+[actionable=true]
+on-button-right=exec makoctl menu -n "${id}" wofi_run.sh dmenu
+
+
+

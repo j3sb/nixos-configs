@@ -30,6 +30,7 @@
 	htop
 	kdePackages.dolphin
 	keepassxc
+	mako
 	nautilus
 	neovim
 	nextcloud-client

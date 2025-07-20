@@ -338,6 +338,9 @@ exec gentoo-pipewire-launcher &
 # nextcloud
 exec sleep 5 && nextcloud &
 
+# notifications
+exec mako --config ~/nixos-configs/dotfiles/mako/config &
+
 exec xbacklight -set 50
 
 # set dark theme
