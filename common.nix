@@ -37,6 +37,7 @@
 	ouch
 	pavucontrol
 	podman-tui
+	python3
 	reptyr
 	rnote
 	rpi-imager
