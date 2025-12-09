@@ -18,14 +18,14 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
 	blender
 	btop-rocm
+	chromium
 	discord
 	ffmpeg
 	firefox
 	gh
+	gimp
 	godot_4
 	htop
 	kdePackages.dolphin
@@ -39,13 +39,16 @@
 	podman-tui
 	python3
 	reptyr
+	remmina
 	rnote
-	rpi-imager
+	usbutils
 	vlc
 	vscode
 	wireguard-tools
 	wl-clipboard
 	xournalpp
+  	vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    	wget
   ];
 
   ## docker and podman
@@ -139,7 +142,7 @@
 	nerd-fonts.jetbrains-mono
 	noto-fonts
   	noto-fonts-cjk-sans
-  	noto-fonts-emoji
+  	noto-fonts-color-emoji
   	liberation_ttf
   	fira-code
   	fira-code-symbols
@@ -159,9 +162,24 @@
 	"waybar/style.css".source = ./dotfiles/waybar/style.css;
 	"wofi/style.css".source = ./dotfiles/wofi/style.css;
     };
+
     programs.ssh = {
       enable = true;
       extraConfig = builtins.readFile ./dotfiles/ssh/config;
+    };
+  };
+
+
+  # home manager for jeanmarc
+  home-manager.users.jeanmarc = {
+    /* The home.stateVersion option does not have a default and must be set */
+    home.stateVersion = "24.11";
+
+    xdg.configFile = {
+    	"sway/config".source = ./dotfiles/sway/config_jm;
+	"waybar/config".source = ./dotfiles/waybar/config;
+	"waybar/style.css".source = ./dotfiles/waybar/style.css;
+	"wofi/style.css".source = ./dotfiles/wofi/style.css;
     };
   };
 
@@ -221,6 +239,8 @@
   # Configure console keymap
   console.keyMap = "us";
 
+  users.defaultUserShell = pkgs.zsh;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.jonas = {
     isNormalUser = true;
@@ -230,6 +250,13 @@
     shell = pkgs.zsh;
   };
 
+  users.users.jeanmarc = {
+    isNormalUser = true;
+    description = "jonas";
+    extraGroups = [ "networkmanager" "video" "dialout" "docker" ];
+    packages = with pkgs; [];
+    shell = pkgs.zsh;
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

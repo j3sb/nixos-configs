@@ -68,7 +68,7 @@ default_border pixel
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 #output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #output * bg /run/current-system/sw/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-output * bg ~/nixos-configs/background.png fill
+# output * bg ~/nixos-configs/background.png fill
 
 #
 # Example configuration:
@@ -338,14 +338,14 @@ exec dbus-update-activation-environment DISPLAY
 exec gentoo-pipewire-launcher &
 
 # nextcloud
-exec sleep 5 && nextcloud &
+#exec sleep 5 && nextcloud &
 
 # notifications
 exec mako --config ~/nixos-configs/dotfiles/mako/config &
 
 exec xbacklight -set 50
 
-#exec firefox
+exec firefox
 
 # set dark theme
 # idk why it's still dark o.0
