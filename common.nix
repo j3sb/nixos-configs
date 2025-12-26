@@ -23,6 +23,7 @@
 	chromium
 	clang
 	cmake
+	dig
 	discord
 	ffmpeg
 	filezilla
@@ -47,6 +48,7 @@
 	python3
 	remmina
 	reptyr
+	rmtrash
 	rnote
 	usbutils
 	vlc
@@ -111,6 +113,8 @@
       rebuild = "sudo nixos-rebuild switch && echo 'remember to push to git :)'";
       update = "sudo nix-channel --update";
       ssh = "TERM=xterm ssh";
+      rm = "rmtrash";
+      rmdir = "rmdirtrash";
     };
     ohMyZsh = {
         enable = true;
