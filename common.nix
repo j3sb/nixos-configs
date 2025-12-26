@@ -21,11 +21,16 @@
 	blender
 	btop-rocm
 	chromium
+	clang
+	cmake
 	discord
 	ffmpeg
+	filezilla
 	firefox
+	gcc
 	gh
 	gimp
+	gnumake
 	godot_4
 	htop
 	kdePackages.dolphin
@@ -36,10 +41,12 @@
 	nextcloud-client
 	ouch
 	pavucontrol
+	picotool
 	podman-tui
+	processing
 	python3
-	reptyr
 	remmina
+	reptyr
 	rnote
 	usbutils
 	vlc
@@ -63,7 +70,14 @@
       		defaultNetwork.settings.dns_enabled = true;
 	};
   };
+
   
+  # raspberry pi pico programming
+  services.udev.extraRules = ''
+    # Raspberry Pi Pico
+    SUBSYSTEM=="usb", ATTR{idVendor}=="2e8a", MODE="0666"
+  '';
+
 
   programs.git = {
   	enable = true;
@@ -77,7 +91,7 @@
 
 
   # steam
-  programs.steam = {
+ programs.steam = {
     enable = true;
     localNetworkGameTransfers.openFirewall = true;
   };
@@ -94,7 +108,7 @@
 
     shellAliases = {
       ll = "ls -l";
-      rebuild = "sudo nixos-rebuild switch";
+      rebuild = "sudo nixos-rebuild switch && echo 'remember to push to git :)'";
       update = "sudo nix-channel --update";
       ssh = "TERM=xterm ssh";
     };
@@ -103,11 +117,11 @@
         plugins = [ "git" ];
         theme = "robbyrussell";
       };
-    loginShellInit = ''
-      if [ -z "$WAYLAND_DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ] ; then
-        exec sway
-      fi
-      '';
+#    loginShellInit = ''
+#      if [ -z "$WAYLAND_DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ] ; then
+#        exec sway
+#      fi
+#      '';
 
   };
 
@@ -169,6 +183,10 @@
     };
   };
 
+
+  services.desktopManager.plasma6.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
 
   # home manager for jeanmarc
   home-manager.users.jeanmarc = {
@@ -252,8 +270,8 @@
 
   users.users.jeanmarc = {
     isNormalUser = true;
-    description = "jonas";
-    extraGroups = [ "networkmanager" "video" "dialout" "docker" ];
+    description = "jean-marc";
+    extraGroups = [ "networkmanager" "video" "dialout" ];
     packages = with pkgs; [];
     shell = pkgs.zsh;
   };
