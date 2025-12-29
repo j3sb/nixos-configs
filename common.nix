@@ -43,6 +43,7 @@
 	ouch
 	pavucontrol
 	picotool
+	piper
 	podman-tui
 	processing
 	python3
