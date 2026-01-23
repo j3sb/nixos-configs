@@ -72,6 +72,10 @@ tooltip label{
 	border-radius: 10px;
 }
 
+#window{
+	font-size: 130%;
+}
+
 #backlight,
 #backlight-slider,
 #battery,
@@ -91,7 +95,6 @@ tooltip label{
 #taskbar,
 #temperature,
 #tray,
-#window,
 #wireplumber,
 #workspaces,
 #custom-backlight,
