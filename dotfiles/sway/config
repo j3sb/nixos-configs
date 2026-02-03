@@ -160,7 +160,7 @@ input "1386:221:Wacom_Bamboo_Connect_Pen" {
     set $ps2 Control+Print
     set $ps3 Shift+Print
     set $ps4 $mod+Print
-    set $psf ~/Pictures/ps_$(date +"%Y%m%d%H%M%S").png
+    set $psf ~/Pictures/ps_$(date +"%Y/%m/%d_%H:%M:%S").png
 
     # screenshot
     bindsym $ps1 exec grim -g "$(slurp)" - | wl-copy

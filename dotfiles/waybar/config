@@ -114,7 +114,8 @@
         "format-wifi": "  {essid} ({signalStrength}%)", // Icon: wifi
         "format-ethernet": "🔌  {ifname}: {ipaddr}/{cidr}", // Icon: ethernet
         "format-disconnected": "⚠  Disconnected",
-        "tooltip-format": "{ifname}: {ipaddr}"
+        "tooltip-format": "{ifname}: {ipaddr}",
+        "on-click": "kitty nmtui"
     },
 
     "hyprland/submap": {
