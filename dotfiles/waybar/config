@@ -26,6 +26,7 @@
         "hyprland/window"
     ],
     "modules-right": [ // add volume and brightness
+	"custom/netspeed",
         "network",
         "memory",
         "cpu",
@@ -87,6 +88,15 @@
           "critical": 90
         },
         "on-click": "kitty btop"
+    },
+
+    "custom/netspeed" : {
+	    "exec": "~/.config/waybar/scripts/netspeed.sh",
+	    "restart-interval": 0,
+	    "format": "{}",
+	    "tooltip": false,
+	    "signal": 8, // update on click
+  	    "on-click": "pkill -RTMIN+8 waybar"
     },
 
     "custom/keyboard-layout": {
