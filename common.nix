@@ -18,47 +18,55 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-	blender
-	btop-rocm
-	chromium
-	clang
-	cmake
-	dig
-	discord
-	ffmpeg
-	filezilla
-	firefox
-	gcc
-	gh
-	gimp
-	gnumake
-	godot_4
-	htop
-	kdePackages.dolphin
-	keepassxc
-	mako
-	nautilus
-	neovim
-	nextcloud-client
-	ouch
-	pavucontrol
-	picotool
-	piper
-	podman-tui
-	processing
-	python3
-	remmina
-	reptyr
-	rmtrash
-	rnote
-	usbutils
-	vlc
-	vscode
-	wireguard-tools
-	wl-clipboard
-	xournalpp
-  	vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    	wget
+    blender
+    btop-rocm
+    chromium
+    clang
+    cmake
+    dig
+    discord
+    ffmpeg
+    filezilla
+    firefox
+    gcc
+    gh
+    gimp
+    gnumake
+    godot_4
+    htop
+    kdePackages.dolphin
+    keepassxc
+    mako
+    nautilus
+    neovim
+    nextcloud-client
+    ouch
+    pavucontrol
+    picotool
+    piper
+    podman-tui
+    processing
+    python3
+    remmina
+    reptyr
+    rmtrash
+    rnote
+    usbutils
+    vlc
+    vscode
+    wireguard-tools
+    wl-clipboard
+    xournalpp
+    brightnessctl
+    grim
+    hyprlauncher
+    kitty
+    pulseaudio
+    slurp
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    waybar
+    wget
+    wofi
   ];
 
   ## docker and podman
@@ -67,11 +75,11 @@
   # podman
   virtualisation.containers.enable = true;
   virtualisation = {
-  	podman = {
-		enable = true;
-		# Required for containers under podman-compose to be able to talk to each other.
-      		defaultNetwork.settings.dns_enabled = true;
-	};
+    podman = {
+    enable = true;
+    # Required for containers under podman-compose to be able to talk to each other.
+          defaultNetwork.settings.dns_enabled = true;
+  };
   };
 
   
@@ -83,13 +91,13 @@
 
 
   programs.git = {
-  	enable = true;
-	config = {
-		# should probably be done in home-manager
-		user.email = "jonas.bonnaudet@gmail.com";
-		user.name = "Jonas";
-		pull.rebase = true;
-	};
+    enable = true;
+  config = {
+    # should probably be done in home-manager
+    user.email = "jonas.bonnaudet@gmail.com";
+    user.name = "Jonas";
+    pull.rebase = true;
+  };
   };
 
 
@@ -97,6 +105,10 @@
  programs.steam = {
     enable = true;
     localNetworkGameTransfers.openFirewall = true;
+  };
+
+  programs.fish = {
+    enable = true;
   };
 
   # zsh
@@ -136,10 +148,27 @@
 
   # sway
   programs.sway = {
-  	enable = true;
+    enable = true;
         wrapperFeatures.gtk = true;
-	# add waybar as a "dependecy" of sway
-	extraPackages = with pkgs; [ brightnessctl grim pulseaudio waybar wofi slurp ];
+  # add waybar as a "dependecy" of sway
+  extraPackages = with pkgs; [ brightnessctl grim pulseaudio waybar wofi slurp ];
+  };
+
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+    xwayland.enable = true;
+  };
+
+  security.sudo = {
+    enable = true;
+    wheelNeedsPassword = false;
+    extraRules = [
+      {
+        groups = [ "wheel" ];
+        commands = [ "ALL" ];
+      }
+    ];
   };
 
   # foot configuration
@@ -158,16 +187,16 @@
 
   # fonts
   fonts.packages = with pkgs; [
-	nerd-fonts.jetbrains-mono
-	noto-fonts
-  	noto-fonts-cjk-sans
-  	noto-fonts-color-emoji
-  	liberation_ttf
-  	fira-code
-  	fira-code-symbols
-  	mplus-outline-fonts.githubRelease
-  	dina-font
-  	proggyfonts
+  nerd-fonts.jetbrains-mono
+  noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-color-emoji
+    liberation_ttf
+    fira-code
+    fira-code-symbols
+    mplus-outline-fonts.githubRelease
+    dina-font
+    proggyfonts
   ];
 
   # home manager for config files and stuff lol
@@ -175,12 +204,15 @@
     /* The home.stateVersion option does not have a default and must be set */
     home.stateVersion = "24.11";
 
-    xdg.configFile = {
-    	"sway/config".source = ./dotfiles/sway/config;
-	"waybar/config".source = ./dotfiles/waybar/config;
-	"waybar/style.css".source = ./dotfiles/waybar/style.css;
-	"wofi/style.css".source = ./dotfiles/wofi/style.css;
-    };
+    xdg.configFile = let
+      dirs = [ "fish" "hypr" "mako" "sway" "waybar" "wofi" ];
+      in builtins.listToAttrs (map (name: {
+        inherit name;
+        value = {
+          source = ./dotfiles + "/${name}";
+          recursive = true;
+        };
+    }) dirs);
 
     programs.ssh = {
       enable = true;
@@ -199,10 +231,10 @@
     home.stateVersion = "24.11";
 
     xdg.configFile = {
-    	"sway/config".source = ./dotfiles/sway/config_jm;
-	"waybar/config".source = ./dotfiles/waybar/config;
-	"waybar/style.css".source = ./dotfiles/waybar/style.css;
-	"wofi/style.css".source = ./dotfiles/wofi/style.css;
+      "sway/config".source = ./dotfiles/sway/config_jm;
+  "waybar/config".source = ./dotfiles/waybar/config;
+  "waybar/style.css".source = ./dotfiles/waybar/style.css;
+  "wofi/style.css".source = ./dotfiles/wofi/style.css;
     };
   };
 
@@ -262,7 +294,7 @@
   # Configure console keymap
   console.keyMap = "us";
 
-  users.defaultUserShell = pkgs.zsh;
+  users.defaultUserShell = pkgs.fish;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.jonas = {
@@ -270,7 +302,6 @@
     description = "jonas";
     extraGroups = [ "networkmanager" "video" "wheel" "dialout" "docker" ];
     packages = with pkgs; [];
-    shell = pkgs.zsh;
   };
 
   users.users.jeanmarc = {
@@ -278,7 +309,6 @@
     description = "jean-marc";
     extraGroups = [ "networkmanager" "video" "dialout" ];
     packages = with pkgs; [];
-    shell = pkgs.zsh;
   };
 
   # Some programs need SUID wrappers, can be configured further or are

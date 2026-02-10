@@ -1,4 +1,4 @@
-source /usr/share/cachyos-fish-config/cachyos-config.fish
+#source /usr/share/cachyos-fish-config/cachyos-config.fish
 
 # overwrite greeting
 # potentially disabling fastfetch
@@ -23,4 +23,8 @@ end
 
 # ssh
 alias ssh "kitty +kitten ssh"
+
+# nixos
+alias rebuild "sudo nixos-rebuild switch && echo 'remember to push to git :)'"
+alias update "sudo nix-channel --update"
 
