@@ -19,7 +19,9 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     blender
+    brightnessctl
     btop-rocm
+    chirp
     chromium
     clang
     cmake
@@ -33,9 +35,12 @@
     gimp
     gnumake
     godot_4
+    grim
     htop
+    hyprlauncher
     kdePackages.dolphin
     keepassxc
+    kitty
     mako
     nautilus
     neovim
@@ -46,27 +51,24 @@
     piper
     podman-tui
     processing
+    pulseaudio
     python3
     remmina
     reptyr
     rmtrash
     rnote
+    slurp
     usbutils
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     vlc
     vscode
-    wireguard-tools
-    wl-clipboard
-    xournalpp
-    brightnessctl
-    grim
-    hyprlauncher
-    kitty
-    pulseaudio
-    slurp
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     waybar
     wget
+    wireguard-tools
+    wl-clipboard
+    wlr-randr
     wofi
+    xournalpp
   ];
 
   ## docker and podman
