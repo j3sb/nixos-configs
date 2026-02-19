@@ -17,6 +17,7 @@ alias gs "git status"
 alias ga "git add"
 alias gp "git push"
 alias gd "git diff"
+alias gdi "git diff-image"
 function gc
 	git commit -m "$argv"
 end
