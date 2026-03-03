@@ -22,6 +22,8 @@ function gc
 	git commit -m "$argv"
 end
 
+alias lg "lazygit"
+
 # ssh
 alias ssh "kitty +kitten ssh"
 

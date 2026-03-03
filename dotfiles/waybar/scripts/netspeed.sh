@@ -12,9 +12,7 @@ TX_RATE=$(( (TX2 - TX1) / INTERVAL ))
 
 human() {
   awk -v b="$1" 'BEGIN {
-    if (b < 1024) printf "%d B/s", b;
-    else if (b < 1024^2) printf "%.1f KB/s", b/1024;
-    else printf "%.1f MB/s", b/1024^2;
+    printf "%.1f MB/s", b/1024^2;
   }'
 }
 
