@@ -3,7 +3,7 @@
 SETUVAR __done_min_cmd_duration:10000
 SETUVAR __done_notification_urgency_level:low
 SETUVAR __fish_initialized:4300
-SETUVAR fish_user_paths:/home/jonas/go/bin\x1e/home/jonas/gcc\x2darm\x2dnone\x2deabi/bin
+SETUVAR fish_user_paths:/home/jonas/code/H5Link/H5LinkConsole/bin/Debug/net10\x2e0\x1e/home/jonas/go/bin\x1e/home/jonas/gcc\x2darm\x2dnone\x2deabi/bin
 SETUVAR pure_begin_prompt_with_current_directory:true
 SETUVAR pure_check_for_new_release:false
 SETUVAR pure_color_at_sign:pure_color_mute
