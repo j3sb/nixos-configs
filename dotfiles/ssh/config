@@ -1,2 +1,0 @@
-Host *.ad.liu.se
-    ProxyJump jonbo278@ssh.edu.liu.se
