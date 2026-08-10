@@ -19,55 +19,6 @@
 -- Source: ~/.config/hypr/monitors.conf — convert this file to Lua and ensure it is on Lua's package.path.
 require("monitors")
 
---###############
---## MONITORS ###
---###############
-
-hl.workspace_rule({
-    workspace = "name:1",
-    monitor = "eDP-1",
-})
-
-hl.workspace_rule({
-    workspace = "name:2",
-    monitor = "DP-7",
-})
-
-hl.workspace_rule({
-    workspace = "name:4",
-    monitor = "DP-7",
-})
-
-hl.workspace_rule({
-    workspace = "name:6",
-    monitor = "DP-7",
-})
-
-hl.workspace_rule({
-    workspace = "name:8",
-    monitor = "DP-7",
-})
-
-hl.workspace_rule({
-    workspace = "name:3",
-    monitor = "DP-8",
-})
-
-hl.workspace_rule({
-    workspace = "name:5",
-    monitor = "DP-8",
-})
-
-hl.workspace_rule({
-    workspace = "name:7",
-    monitor = "DP-8",
-})
-
-hl.workspace_rule({
-    workspace = "name:9",
-    monitor = "DP-8",
-})
-
 local terminal = "kitty"
 local fileManager = "dolphin"
 local menu = "hyprlauncher"
@@ -195,12 +146,6 @@ hl.gesture({
     direction = "horizontal",
     scale = 2,
     action = "workspace",
-    -- TODO: manual review — extra gesture field "workspace"
-})
-
-hl.device({
-    name = "epic-mouse-v1",
-    sensitivity = -0.5,
 })
 
 local mainMod = "ALT" -- Sets "Windows" key as main modifier
@@ -226,6 +171,10 @@ hl.bind(mainMod .. " + SHIFT + H", hl.dsp.window.move({ direction = "l" }))
 hl.bind(mainMod .. " + SHIFT + L", hl.dsp.window.move({ direction = "r" }))
 hl.bind(mainMod .. " + SHIFT + K", hl.dsp.window.move({ direction = "u" }))
 hl.bind(mainMod .. " + SHIFT + J", hl.dsp.window.move({ direction = "d" }))
+
+-- Move workspace to display
+hl.bind(mainMod .. " + CTRL + SHIFT + H", hl.dsp.workspace.move({ monitor = "-1"}))
+hl.bind(mainMod .. " + CTRL + SHIFT + L", hl.dsp.workspace.move({ monitor = "+1"}))
 
 hl.bind(mainMod .. " + 1", hl.dsp.focus({ workspace = 1 }))
 hl.bind(mainMod .. " + 2", hl.dsp.focus({ workspace = 2 }))
@@ -279,7 +228,7 @@ hl.define_submap("resize", function()
     hl.bind("Escape", hl.dsp.submap("reset"))
 end)
 
-local psf = "~/Pictures/ps_$(date +\"%Y_%m_%d-%H:%M:%S\").png"
+local psf = "~/Pictures/ps_$(date +\"%Y.%m.%d-%H-%M-%S\").png"
 
 hl.bind("Print", hl.dsp.exec_cmd("grim -g \"$(slurp)\" - | wl-copy"))
 hl.bind("CONTROL + Print", hl.dsp.exec_cmd("grim - | wl-copy"))
@@ -331,14 +280,7 @@ hl.window_rule({
 })
 
 hl.config({
-    cursor = {
-        no_hardware_cursors = 1,
-    },
     -- See https://wiki.hypr.land/Configuring/Monitors/
-    --monitor=DP-7,preferred,0x0,auto#,transform,1
-    --monitor=DP-8,preferred,1920x0,auto
-    --monitor=eDP-1,preferred,auto-right,1.25
-    --monitor=,preffered,auto,auto
     --##################
     --## MY PROGRAMS ###
     --##################
@@ -506,8 +448,4 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
     hl.exec_cmd("/usr/bin/dunst")
     hl.exec_cmd("waybar")
-    hl.exec_cmd("firefox", { workspace = "1 silent" })
-    hl.exec_cmd("code", { workspace = "2 silent" })
-    hl.exec_cmd("kitty", { workspace = "3" })
 end)
-
