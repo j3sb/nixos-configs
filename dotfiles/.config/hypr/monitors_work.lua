@@ -2,6 +2,10 @@
 --## MONITORS ###
 --###############
 
+-- Match dock monitors by description: MST connector names (DP-n) change on every replug
+local left = "desc:Dell Inc. DELL S2725DS 5PV5J74"
+local right = "desc:Dell Inc. DELL U2424H HR2QG34"
+
 hl.monitor({
     output = "eDP-1",
     mode = "1920x1200",
@@ -10,14 +14,14 @@ hl.monitor({
 })
 
 hl.monitor({
-    output = "DP-7",
+    output = left,
     mode = "2560x1440",
     position = "1536x0",
     scale = "1",
 })
 
 hl.monitor({
-    output = "DP-8",
+    output = right,
     mode = "1920x1080",
     position = "4096x0",
     scale = "1",
@@ -33,42 +37,42 @@ hl.workspace_rule({
 
 hl.workspace_rule({
     workspace = "name:2",
-    monitor = "DP-7",
+    monitor = left,
 })
 
 hl.workspace_rule({
     workspace = "name:4",
-    monitor = "DP-7",
+    monitor = left,
 })
 
 hl.workspace_rule({
     workspace = "name:6",
-    monitor = "DP-7",
+    monitor = left,
 })
 
 hl.workspace_rule({
     workspace = "name:8",
-    monitor = "DP-7",
+    monitor = left,
 })
 
 hl.workspace_rule({
     workspace = "name:3",
-    monitor = "DP-8",
+    monitor = right,
 })
 
 hl.workspace_rule({
     workspace = "name:5",
-    monitor = "DP-8",
+    monitor = right,
 })
 
 hl.workspace_rule({
     workspace = "name:7",
-    monitor = "DP-8",
+    monitor = right,
 })
 
 hl.workspace_rule({
     workspace = "name:9",
-    monitor = "DP-8",
+    monitor = right,
 })
 
 
