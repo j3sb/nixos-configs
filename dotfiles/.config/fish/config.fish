@@ -29,3 +29,7 @@ alias ssh "kitty +kitten ssh"
 alias rebuild "sudo nixos-rebuild switch && echo 'remember to push to git :)'"
 alias update "sudo nix-channel --update"
 
+# User ids for docker compose
+set -gx USER_ID (id -u)
+set -gx USER_GID (id -g)
+

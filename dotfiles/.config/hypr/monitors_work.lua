@@ -9,7 +9,7 @@ local right = "desc:Dell Inc. DELL U2424H HR2QG34"
 hl.monitor({
     output = "eDP-1",
     mode = "1920x1200",
-    position = "0x300",
+    position = "0x480",
     scale = "1.25",
 })
 
