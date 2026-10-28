@@ -78,7 +78,7 @@ hl.workspace_rule({
 
 -- autostart
 hl.on("hyprland.start", function()
-    hl.exec_cmd("firefox", { workspace = "1 silent" })
-    hl.exec_cmd("code", { workspace = "2 silent" })
-    hl.exec_cmd("kitty", { workspace = "3" })
+    hl.exec_cmd("firefox", { workspace = "1" })
+    hl.exec_cmd("zeditor", { workspace = "2 silent" })
+    hl.exec_cmd("kitty", { workspace = "3 silent" })
 end)

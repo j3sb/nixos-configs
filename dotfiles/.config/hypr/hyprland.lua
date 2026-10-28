@@ -162,7 +162,7 @@ hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd("command -v hyprshutdown >/de
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("firefox"))
-hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("code"))
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("zeditor"))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
 
